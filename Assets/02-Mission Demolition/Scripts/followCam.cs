@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class followCam : MonoBehaviour 
+public class FollowCam : MonoBehaviour 
 {
     static public GameObject POI; // The static point of interest
 
