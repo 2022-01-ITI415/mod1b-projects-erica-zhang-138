@@ -21,8 +21,6 @@ public class MissionDemolition : MonoBehaviour
     public Vector3 castlePos; // The place to put castles
     public GameObject[] castles;   // An array of the castles
 
-
-
     [Header("Set Dynamically")]
     public int level;     // The current level
     public int levelMax;  // The number of levels
@@ -97,7 +95,7 @@ public class MissionDemolition : MonoBehaviour
 
     }
 
-    public void SwitchView( string eView = "" ) {
+    public void SwitchView(string eView = "") {
         if (eView == "") {
             eView = uitButton.text;
 
@@ -113,14 +111,14 @@ public class MissionDemolition : MonoBehaviour
                 uitButton.text = "Show Both";
                 break;
             case "Show Both":
-                FollowCam.POI = GameObject.Find("ViewBoth");
+                FollowCam.POI = GameObject.Find("viewBoth");
                 uitButton.text = "Show Slingshot";
                 break;
-         }
-     }
+        }
+    }
 
      // Static method that allows code anywhere to increment shotsTaken
-     public static void ShotFired() {
-         S.shotsTaken++;
-     }
+    public static void ShotFired() {
+        S.shotsTaken++;
+    }
 }
