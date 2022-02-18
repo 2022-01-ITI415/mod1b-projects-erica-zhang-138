@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum GameMode {
-        idle,
-        playing,
-        levelEnd
-    }
+
 
 public class protoGame : MonoBehaviour
 {
@@ -15,55 +11,69 @@ public class protoGame : MonoBehaviour
 
     [Header("Set in Inspector")]
     public Text uitLevel;  // The UIText_Level Text
-    public Text uitButton; // The Text on UIButton_View
-    public Vector3 levelPos; // The place to put level
-    public GameObject[] levels;   // An array of the levels
+
+    public Vector3 platPos; // The place to put plats
+    public GameObject[] plats;   // An array of the plats
+    public Vector3 prefabPos;
+    public GameObject prefab;
 
 
     [Header("Set Dynamically")]
-    public int lvl;     // The current level
-    public int lvlMax;  // The number of levels
+    public int level;     // The current level
+    public int levelMax;  // The number of levels
 
-    public GameObject level; // The current level
+    public GameObject plat;    // The current castle
     public GameMode mode = GameMode.idle;
 
-    void Start() {
-        P = this;
-        lvl = 0;
-        lvlMax = levels.Length;
+    void Start()
+    {
+        P = this; // Define the Singleton
+        level = 0;
+        levelMax = plats.Length;
         StartLevel();
     }
 
-    void StartLevel() {
-        // Get rid of the old level if one exists
-        if (level != null) {
-            Destroy(level);
+    void StartLevel()
+    {
+        // Get rid of the old plat if one exists
+        if (plat != null)
+        {
+            Destroy(plat);
         }
 
         // Destroy old players if they exist
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject pTemp in gos) {
+        foreach (GameObject pTemp in gos)
+        {
             Destroy(pTemp);
         }
 
-        // Instantiate the new level
-        level = Instantiate<GameObject>(levels[level]);
-        level.transform.position = levelPos;
+        // Instantiate the new plat
+        plat = Instantiate<GameObject>(plats[level]);
+        plat.transform.position = platPos;
+
+        // Instantiate the new player
+        prefab = Instantiate<GameObject>(prefab);
+        prefab.transform.position = prefabPos;
 
         // Reset the goal
-        Goal.goalMet = false;
+        goal.goalMet = false;
         UpdateGUI();
         mode = GameMode.playing;
     }
 
-    void UpdateGUI() {
+    void UpdateGUI()
+    {
         // Show the data in the GUITexts
-        uitLevel.text = "Level: " + (lvl + 1) + " of " + lvlMax;
+        uitLevel.text = "Level: " + (level + 1) + " of " + levelMax;
     }
 
-    void Update() {
+    void Update()
+    {
+        UpdateGUI();
         // Check for level end
-        if ((mode == GameMode.playing) && Goal.goalMet) {
+        if ((mode == GameMode.playing) && Goal.goalMet)
+        {
             // Change mode to stop checking for level end
             mode = GameMode.levelEnd;
 
@@ -71,10 +81,13 @@ public class protoGame : MonoBehaviour
             Invoke("NextLevel", 2f);
         }
     }
-    void NextLevel() {
-        lvl++;
-        if (lvl == lvlMax) {
-            lvl = 0;
+
+    void NextLevel()
+    {
+        level++;
+        if (level == levelMax)
+        {
+            level = 0;
         }
         StartLevel();
 

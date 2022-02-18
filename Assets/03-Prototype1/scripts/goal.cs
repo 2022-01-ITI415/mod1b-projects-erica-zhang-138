@@ -9,7 +9,7 @@ public class goal : MonoBehaviour
     void OnCollisionStay(Collision other) {
         // when collision is hit by Player
         if (other.gameObject.tag == "Player") {
-            Goal.goalMet = true;
+            goal.goalMet = true;
 
             // also set the alpha of the color of higher opacity
 			Material mat = GetComponent<Renderer>().material;
