@@ -25,54 +25,54 @@ public class protoGame : MonoBehaviour
     public GameObject plat;    // The current castle
     public GameMode mode = GameMode.idle;
 
-    void Start()
-    {
+    void Start() {
         P = this; // Define the Singleton
         level = 0;
         levelMax = plats.Length;
         StartLevel();
     }
 
-    void StartLevel()
-    {
+    void StartLevel() {
+        prefab.transform.position = prefabPos;
+        
         // Get rid of the old plat if one exists
-        if (plat != null)
-        {
+        if (plat != null) {
             Destroy(plat);
         }
-
+/*
         // Destroy old players if they exist
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject pTemp in gos)
         {
             Destroy(pTemp);
         }
+*/
+        
+
 
         // Instantiate the new plat
         plat = Instantiate<GameObject>(plats[level]);
         plat.transform.position = platPos;
 
         // Instantiate the new player
-        prefab = Instantiate<GameObject>(prefab);
+        //prefab = Instantiate<GameObject>(prefab);
         prefab.transform.position = prefabPos;
 
         // Reset the goal
-        goal.goalMet = false;
+        Goal2.goalMet = false;
         UpdateGUI();
         mode = GameMode.playing;
     }
 
-    void UpdateGUI()
-    {
+    void UpdateGUI() {
         // Show the data in the GUITexts
         uitLevel.text = "Level: " + (level + 1) + " of " + levelMax;
     }
 
-    void Update()
-    {
+    void Update() {
         UpdateGUI();
         // Check for level end
-        if ((mode == GameMode.playing) && Goal.goalMet)
+        if ((mode == GameMode.playing) && Goal2.goalMet)
         {
             // Change mode to stop checking for level end
             mode = GameMode.levelEnd;
@@ -82,14 +82,11 @@ public class protoGame : MonoBehaviour
         }
     }
 
-    void NextLevel()
-    {
+    void NextLevel() {
         level++;
-        if (level == levelMax)
-        {
+        if (level == levelMax) {
             level = 0;
         }
         StartLevel();
-
     }
 }
