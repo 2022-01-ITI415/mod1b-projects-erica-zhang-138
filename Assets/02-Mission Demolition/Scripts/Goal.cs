@@ -9,7 +9,7 @@ public class Goal : MonoBehaviour
 	void OnTriggerEnter(Collider other) {
 		// when the trigger is hit by something
 		// check to see if it's a Projectile 
-		if (other.gameObject.tag == "Projectile") {
+		if (other.gameObject.tag == "projectile") {
 			// if so, set goalMet = true
 			Goal.goalMet = true;
 

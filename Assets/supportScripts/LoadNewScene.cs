@@ -5,19 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class LoadNewScene : MonoBehaviour
 {
+    public void LoadScene0() {
+        SceneManager.LoadScene("SceneMain");
+    }
 
-    public void LoadScene1()
-    {
+    public void LoadScene1() {
         SceneManager.LoadScene("Main-ApplePicker");
     }
 
-    public void LoadScene2()
-    {
+    public void LoadScene2() {
         SceneManager.LoadScene("Main-MissionDemolition");
     }
 
-    public void LoadScene3()
-    {
+    public void LoadScene3() {
         SceneManager.LoadScene("Main-Prototype 1");
     }
 
